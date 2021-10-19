@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockstar", "Rockstar\Rockstar.csproj", "{BF9FDE95-021C-4464-9D41-ADF4F6B5D9DC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAPI", "NewsApiClient\News-API-csharp\NewsAPI\NewsAPI.csproj", "{86CDF033-3CAE-4845-98BF-70575DF27E2B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockstar", "Rockstar\Rockstar.csproj", "{BF9FDE95-021C-4464-9D41-ADF4F6B5D9DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{BF9FDE95-021C-4464-9D41-ADF4F6B5D9DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF9FDE95-021C-4464-9D41-ADF4F6B5D9DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF9FDE95-021C-4464-9D41-ADF4F6B5D9DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{86CDF033-3CAE-4845-98BF-70575DF27E2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86CDF033-3CAE-4845-98BF-70575DF27E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86CDF033-3CAE-4845-98BF-70575DF27E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86CDF033-3CAE-4845-98BF-70575DF27E2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
