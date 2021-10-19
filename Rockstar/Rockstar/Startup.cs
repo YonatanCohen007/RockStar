@@ -2,9 +2,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NewsAPI;
+using Newtonsoft.Json.Serialization;
+using Rockstar.Models;
+using Rockstar.Services;
 
 namespace Rockstar
 {
@@ -20,14 +25,29 @@ namespace Rockstar
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            services.AddSingleton<IConfiguration>(Configuration);
 
-            services.AddControllersWithViews();
+            // DbContext
+            services.AddDbContext<RockStarDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("RockStarDbConString")));
+            
+            // Json Serializer
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver
+                = new DefaultContractResolver());
+
+            // Starting DB updater
+            services.AddSingleton<NewsApiClient>(_ => new NewsApiClient(Configuration.GetSection("NewsApiKey").Value));
+            services.AddHostedService<DbBackgroundUpdater>();
+            services.AddTransient<IWorker, Worker>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,11 +80,7 @@ namespace Rockstar
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
+                spa.UseReactDevelopmentServer(npmScript: "start");
             });
         }
     }
